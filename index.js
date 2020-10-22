@@ -59,6 +59,19 @@ APP.post("/salvarpergunta", (req,res)=>{
   })
   
 });
+//para criar parâmetros no express (/:parametro)
+APP.get("/pergunta/:id", (req, res)=>{
+  var id = req.params.id;
+  PERGUNTA.findOne({
+    where: {id: id}
+  }).then(pergunta =>{
+    if(pergunta != undefined){//pergunta encontrada
+      res.render("pergunta");
+    }else{//não encontrada
+      res.redirect("/");
+    }
+  });
+});
 
 //Porta Servidor
 APP.listen(3000, ()=>{
